@@ -96,7 +96,7 @@ def show_map_view():
                 "dragNodes": True,
                 "dragView": True,
                 "zoomView": False
-        }
+        },
             barnesHut={
                 "gravitationalConstant": -5000, 
                 "centralGravity": 0.4,
