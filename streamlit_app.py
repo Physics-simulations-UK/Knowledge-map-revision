@@ -92,7 +92,7 @@ def show_map_view():
         )
         col1,col2,col3 = st.columns([0.1, 0.8, 0.1])
         with col2:
-wi cl        clicked = agraph(nodes=nodes, edges=edges, config=config)
+            clicked = agraph(nodes=nodes, edges=edges, config=config)
 
         if clicked and clicked != st.session_state.web_data["center"]:
             st.session_state.selected_node = clicked
