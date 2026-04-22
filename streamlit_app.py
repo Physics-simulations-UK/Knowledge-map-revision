@@ -50,12 +50,17 @@ def stream_text(text):
 # --- VIEW: KNOWLEDGE MAP ---
 def show_map_view():
     st.title("🕸️ Knowledge Map Navigator")
-    st.html("""
+    st.markdown("""
         <style>
+            div[data-testid="stHorizontalBlock"] > div:nth-child(2) {
+                disply: flex;
+                justify-content: center;
+            }
+            
             iframe[title="streamlit_agraph.agraph"]{
-                display: block;
+        
                 margin: 0 auto;
-                boarder: none;
+            
             }
         <style>
     """, unsafe_allow_html=True)
