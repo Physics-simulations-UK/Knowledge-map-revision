@@ -50,6 +50,15 @@ def stream_text(text):
 # --- VIEW: KNOWLEDGE MAP ---
 def show_map_view():
     st.title("🕸️ Knowledge Map Navigator")
+    st.html("""
+        <style>
+            iframe[title="streamlit_agraph.agraph"]{
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        <style>
+    """)
    
     with st.sidebar:
         st.header("Syllabus Input")
@@ -62,17 +71,19 @@ def show_map_view():
                 st.rerun()
 
     if st.session_state.web_data:
-        # Small node sizes prevent clumping
+        # use columns layout spacing
+        col1, col2, col3 = st.columns([0.05, 0.9, 0.05])
+        with col2:
         nodes = [Node(id=st.session_state.web_data["center"],
                       label=st.session_state.web_data["center"],
                       size=60, 
-                      shape="circularDot",
+                      shape="ellipse",
                       color="#FFD700")]
        
         edges = []
         for b in st.session_state.web_data["branches"]:
             color = st.session_state.mastery.get(b, "#d3d3d3")
-            nodes.append(Node(id=b, label=b, size=35, shape="circularDot", color=color))
+            nodes.append(Node(id=b, label=b, size=45, shape="circularDot", color=color))
             edges.append(Edge(source=st.session_state.web_data["center"], target=b))
 
         # Spider Web Physics Config
