@@ -65,23 +65,25 @@ def show_map_view():
         # Small node sizes prevent clumping
         nodes = [Node(id=st.session_state.web_data["center"],
                       label=st.session_state.web_data["center"],
-                      size=30, color="#FFD700")]
+                      size=50, 
+                      shape="circularDot",
+                      color="#FFD700")]
        
         edges = []
         for b in st.session_state.web_data["branches"]:
             color = st.session_state.mastery.get(b, "#d3d3d3")
-            nodes.append(Node(id=b, label=b, size=20, color=color))
+            nodes.append(Node(id=b, label=b, size=35, shape="circularDot", color=color))
             edges.append(Edge(source=st.session_state.web_data["center"], target=b))
 
         # Spider Web Physics Config
         config = Config(
-            width=800,
+            width=900,
             height=600,
             physics=True,
             barnesHut={
-                "gravitationalConstant": -15000, # Massive repulsion
+                "gravitationalConstant": -20000, # Massive repulsion
                 "centralGravity": 0.2,
-                "springLength": 200,
+                "springLength": 250,
                 "springConstant": 0.05,
                 "avoidOverlap": 1
             },
