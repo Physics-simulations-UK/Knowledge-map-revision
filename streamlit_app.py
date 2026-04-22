@@ -59,13 +59,23 @@ if st.session_state.current_view == "map":
                 st.session_state.mastery = {b: "#d3d3d3" for b in branches}
 
     if st.session_state.web_data:
-        nodes = [Node(id=st.session_state.web_data["center"], label=st.session_state.web_data["center"], size=600, color="#FFD700")]
+        nodes = [Node(id=st.session_state.web_data["center"], label=st.session_state.web_data["center"], size=300, color="#FFD700")]
         edges = []
         for b in st.session_state.web_data["branches"]:
-            nodes.append(Node(id=b, label=b, color=st.session_state.mastery.get(b, "#d3d3d3"), size=400))
+            nodes.append(Node(id=b, label=b, color=st.session_state.mastery.get(b, "#d3d3d3"), size=150))
             edges.append(Edge(source=st.session_state.web_data["center"], target=b))
 
-        config = Config(width=1000, height=600, physics=True)
+        config = Config(
+            width=1000, 
+            height=600, 
+            directed=False,
+            physics=True,
+            hierarchical=False,
+            nodeSpacing=200,
+            forceAtlas2Based={"gravitational Constant": -50'
+                              "centralGravity": 0.01,
+                              "springLength": 200,
+                              "springConstant": 0.08})
         clicked = agraph(nodes=nodes, edges=edges, config=config)
 
         if clicked and clicked != st.session_state.web_data["center"]:
