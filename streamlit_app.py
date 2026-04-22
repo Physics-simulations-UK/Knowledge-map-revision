@@ -54,11 +54,11 @@ def show_map_view():
         <style>
             iframe[title="streamlit_agraph.agraph"]{
                 display: block;
-                margin-left: auto;
-                margin-right: auto;
+                margin: 0 auto;
+                boarder: none;
             }
         <style>
-    """)
+    """, unsafe_allow_html=True)
    
     with st.sidebar:
         st.header("Syllabus Input")
@@ -76,31 +76,38 @@ def show_map_view():
         with col2:
             nodes = [Node(id=st.session_state.web_data["center"],
                       label=st.session_state.web_data["center"],
-                      size=60, 
+                      size=40,
                       shape="ellipse",
                       color="#FFD700")]
        
         edges = []
         for b in st.session_state.web_data["branches"]:
             color = st.session_state.mastery.get(b, "#d3d3d3")
-            nodes.append(Node(id=b, label=b, size=35, shape="ellipse", color=color))
+            nodes.append(Node(id=b, label=b, size=30, shape="ellipse", color=color))
             edges.append(Edge(source=st.session_state.web_data["center"], target=b))
 
         # Spider Web Physics Config
         config = Config(
-            width=800,
-            height=600,
+            width=700,
+            height=500,
             physics=True,
+            hierarchial=False
+            interaction={
+                "dragNodes": True,
+                "dragView": True,
+                "zoomView": False
+        }
             barnesHut={
-                "gravitationalConstant": -8000, 
-                "centralGravity": 0.5,
-                "springLength": 150,
+                "gravitationalConstant": -5000, 
+                "centralGravity": 0.4,
+                "springLength": 120,
                 "springConstant": 0.05,
                 "avoidOverlap": 1,
                 "damping": 0.09
             },
             minVelocity=0.75,
             mxvelocity=50,
+            staticGraphWithDragAndDrop=True,
             nodeHighlightBehavior=True,
             highlightColor="#F7A7A6"
         )
