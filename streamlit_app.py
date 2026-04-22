@@ -96,6 +96,7 @@ def show_map_view():
             width=700,
             height=500,
             physics=True,
+            fit_canvas=True,
             hierarchial=False,
             interaction={
                 "dragNodes": True,
