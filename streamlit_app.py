@@ -74,7 +74,7 @@ def show_map_view():
         # use columns layout spacing
         col1, col2, col3 = st.columns([0.05, 0.9, 0.05])
         with col2:
-        nodes = [Node(id=st.session_state.web_data["center"],
+            nodes = [Node(id=st.session_state.web_data["center"],
                       label=st.session_state.web_data["center"],
                       size=60, 
                       shape="ellipse",
@@ -101,8 +101,7 @@ def show_map_view():
             nodeHighlightBehavior=True,
             highlightColor="#F7A7A6"
         )
-        col1,col2,col3 = st.columns([0.1, 0.8, 0.1])
-        with col2:
+    
             clicked = agraph(nodes=nodes, edges=edges, config=config)
 
         if clicked and clicked != st.session_state.web_data["center"]:
