@@ -96,7 +96,7 @@ def show_map_view():
                 "centralGravity": 0.5,
                 "springLength": 150,
                 "springConstant": 0.05,
-                "avoidOverlap": 1
+                "avoidOverlap": 1,
                 "damping": 0.09
             },
             minVelocity=0.75,
