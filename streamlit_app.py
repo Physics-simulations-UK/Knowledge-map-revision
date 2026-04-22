@@ -91,7 +91,7 @@ def show_map_view():
             width=700,
             height=500,
             physics=True,
-            hierarchial=False
+            hierarchial=False,
             interaction={
                 "dragNodes": True,
                 "dragView": True,
