@@ -71,11 +71,11 @@ if st.session_state.current_view == "map":
             directed=False,
             physics=True,
             hierarchical=False,
-            nodeSpacing=200,
-            forceAtlas2Based={"gravitational Constant": -50,
-                              "centralGravity": 0.01,
-                              "springLength": 200,
-                              "springConstant": 0.08})
+            nodeSpacing=400,
+            forceAtlas2Based={"gravitational Constant": -200,
+                              "centralGravity": 0.005,
+                              "springLength": 250,
+                              "springConstant": 0.05})
         clicked = agraph(nodes=nodes, edges=edges, config=config)
 
         if clicked and clicked != st.session_state.web_data["center"]:
