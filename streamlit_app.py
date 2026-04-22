@@ -25,7 +25,7 @@ if "web_data" not in st.session_state:
 def generate_web_data(topic):
     prompt = f"Act as a curriculum expert. For the topic '{topic}', identify 5 key sub-topics. Return ONLY a JSON object: {{\"sub_topics\": [\"topic1\", \"topic2\", ...]}}"
     response = client.models.generate_content(
-        model="gemini-3.1-flash-lite",
+        model="gemini-3.1-flash-lite-preview",
         contents=prompt,
         config=types.GenerateContentConfig(response_mime_type="application/json")
     )
