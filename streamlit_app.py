@@ -34,7 +34,7 @@ def generate_web_data(topic):
 def generate_questions(node_label):
     prompt = f"Generate 5 MCQs for: {node_label}. Return ONLY a JSON list: [{{\"q\": \"...\", \"options\": [\"A\", \"B\", \"C\"], \"correct\": \"A\", \"explanation\": \"...\"}}]"
     response = client.models.generate_content(
-        model="gemini-3.1-flash-lite",
+        model="gemini-3.1-flash-lite-preview",
         contents=prompt,
         config=types.GenerateContentConfig(response_mime_type="application/json")
     )
