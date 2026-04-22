@@ -102,7 +102,7 @@ def show_map_view():
             highlightColor="#F7A7A6"
         )
     
-            clicked = agraph(nodes=nodes, edges=edges, config=config)
+        clicked = agraph(nodes=nodes, edges=edges, config=config)
 
         if clicked and clicked != st.session_state.web_data["center"]:
             st.session_state.selected_node = clicked
