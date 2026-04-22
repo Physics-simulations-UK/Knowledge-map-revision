@@ -75,7 +75,7 @@ if st.session_state.current_view == "map":
                               "centralGravity": 0.1,
                               "springLength": 250,
                               "springConstant": 0.05,
-                              "damping': 0.09,
+                              "damping": 0.09,
                               "avoidOverlap": 1}
             nodeHighlightBehavior=True,
             highlightColor="#F7A7A6",
