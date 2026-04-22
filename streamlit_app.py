@@ -65,7 +65,7 @@ def show_map_view():
         # Small node sizes prevent clumping
         nodes = [Node(id=st.session_state.web_data["center"],
                       label=st.session_state.web_data["center"],
-                      size=50, 
+                      size=60, 
                       shape="circularDot",
                       color="#FFD700")]
        
@@ -77,21 +77,22 @@ def show_map_view():
 
         # Spider Web Physics Config
         config = Config(
-            width=900,
-            height=600,
+            width=1000,
+            height=700,
             physics=True,
             barnesHut={
-                "gravitationalConstant": -20000, # Massive repulsion
-                "centralGravity": 0.2,
-                "springLength": 250,
+                "gravitationalConstant": -30000, 
+                "centralGravity": 0.1,
+                "springLength": 300,
                 "springConstant": 0.05,
                 "avoidOverlap": 1
             },
             nodeHighlightBehavior=True,
             highlightColor="#F7A7A6"
         )
-
-        clicked = agraph(nodes=nodes, edges=edges, config=config)
+        col1,col2,col3 = st.columns([0.1, 0.8, 0.1])
+        with col2:
+wi cl        clicked = agraph(nodes=nodes, edges=edges, config=config)
 
         if clicked and clicked != st.session_state.web_data["center"]:
             st.session_state.selected_node = clicked
