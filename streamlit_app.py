@@ -66,16 +66,20 @@ if st.session_state.current_view == "map":
             edges.append(Edge(source=st.session_state.web_data["center"], target=b))
 
         config = Config(
-            width=1000, 
+            width=900, 
             height=600, 
             directed=False,
             physics=True,
             hierarchical=False,
-            nodeSpacing=400,
-            forceAtlas2Based={"gravitational Constant": -200,
-                              "centralGravity": 0.005,
+            barnesHut={"gravitational Constant": -1500,
+                              "centralGravity": 0.1,
                               "springLength": 250,
-                              "springConstant": 0.05})
+                              "springConstant": 0.05,
+                              "damping': 0.09,
+                              "avoidOverlap": 1}
+            nodeHighlightBehavior=True,
+            highlightColor="#F7A7A6",
+            colapsible=False
         clicked = agraph(nodes=nodes, edges=edges, config=config)
 
         if clicked and clicked != st.session_state.web_data["center"]:
