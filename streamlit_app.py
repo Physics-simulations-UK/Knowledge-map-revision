@@ -76,10 +76,12 @@ if st.session_state.current_view == "map":
                               "springLength": 250,
                               "springConstant": 0.05,
                               "damping": 0.09,
-                              "avoidOverlap": 1})
+                              "avoidOverlap": 1
+                      },
             nodeHighlightBehavior=True,
             highlightColor="#F7A7A6",
             colapsible=False
+        )
         clicked = agraph(nodes=nodes, edges=edges, config=config)
 
         if clicked and clicked != st.session_state.web_data["center"]:
