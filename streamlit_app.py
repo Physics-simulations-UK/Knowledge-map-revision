@@ -72,7 +72,7 @@ if st.session_state.current_view == "map":
             physics=True,
             hierarchical=False,
             nodeSpacing=200,
-            forceAtlas2Based={"gravitational Constant": -50'
+            forceAtlas2Based={"gravitational Constant": -50,
                               "centralGravity": 0.01,
                               "springLength": 200,
                               "springConstant": 0.08})
