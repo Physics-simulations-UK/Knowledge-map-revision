@@ -72,7 +72,7 @@ def show_map_view():
 
     if st.session_state.web_data:
         # use columns layout spacing
-        col1, col2, col3 = st.columns([0.05, 0.9, 0.05])
+        col1, col2, col3 = st.columns([0.1, 0.8, 0.1])
         with col2:
             nodes = [Node(id=st.session_state.web_data["center"],
                       label=st.session_state.web_data["center"],
@@ -83,21 +83,24 @@ def show_map_view():
         edges = []
         for b in st.session_state.web_data["branches"]:
             color = st.session_state.mastery.get(b, "#d3d3d3")
-            nodes.append(Node(id=b, label=b, size=45, shape="circularDot", color=color))
+            nodes.append(Node(id=b, label=b, size=35, shape="ellipse", color=color))
             edges.append(Edge(source=st.session_state.web_data["center"], target=b))
 
         # Spider Web Physics Config
         config = Config(
-            width=1000,
-            height=700,
+            width=800,
+            height=600,
             physics=True,
             barnesHut={
-                "gravitationalConstant": -30000, 
-                "centralGravity": 0.1,
-                "springLength": 300,
+                "gravitationalConstant": -8000, 
+                "centralGravity": 0.5,
+                "springLength": 150,
                 "springConstant": 0.05,
                 "avoidOverlap": 1
+                "damping": 0.09
             },
+            minVelocity=0.75,
+            mxvelocity=50,
             nodeHighlightBehavior=True,
             highlightColor="#F7A7A6"
         )
