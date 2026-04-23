@@ -78,7 +78,7 @@ def show_map_view():
 
     if st.session_state.web_data:
     
-            nodes = [Node(id=st.session_state.web_data["center"],
+        nodes = [Node(id=st.session_state.web_data["center"],
                       label=st.session_state.web_data["center"],
                       size=55,
                       shape="ellipse",
