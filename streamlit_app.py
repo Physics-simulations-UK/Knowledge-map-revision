@@ -91,7 +91,7 @@ def show_map_view():
                 "springLength": 250,
                 "springConstant": 0.05,
             },
-            interaction={"dragNodes": True, "dragView": False, "zoomView": False}
+            interaction={"dragNodes": True, "dragView": False, "zoomView": False},
             staticGraphWithDragAndDrop=True,
             nodeHighlightBehavior=True,
             highlightColor="#F7A7A6"
