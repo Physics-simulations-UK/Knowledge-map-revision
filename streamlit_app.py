@@ -100,7 +100,7 @@ def show_map_view():
             staticGraphWithDragAndDrop=True,
             nodeHighlightBehavior=True,
             highlightColor="#F7A7A6"
-    
+        )
         clicked = agraph(nodes=nodes, edges=edges, config=config)
 
         if clicked and clicked != st.session_state.web_data["center"]:
