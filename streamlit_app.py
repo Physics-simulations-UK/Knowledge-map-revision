@@ -50,7 +50,8 @@ def stream_text(text):
 # --- VIEW: KNOWLEDGE MAP ---
 def show_map_view():
     st.title("🕸️ Knowledge Map Navigator")
- 
+    st.markdown("<style>iframe {display: block; margin: 0 auto;}</style>", unsafe_allow_html=True)
+     
     with st.sidebar:
         st.header("Syllabus Input")
         topic_input = st.text_input("Enter Topic:", placeholder="e.g. Plate Tectonics")
@@ -62,28 +63,27 @@ def show_map_view():
                 st.rerun()
 
     if st.session_state.web_data:
-        left_buf, main_col, right_buf = st.columns([5, 10, 1])
-        with main_col:
+        
+        with st.container():
             nodes = [Node(id=st.session_state.web_data["center"],
                       label=st.session_state.web_data["center"],
                       size=50,
                       shape="ellipse",
                       color="#FFD700",
-                      font={'size': 20, 'color': 'black', 'face': 'Arial', 'weight': 'bold'})]
+                      font={'size': 20, 'weight': 'bold'})]
        
         edges = []
         for b in st.session_state.web_data["branches"]:
             color = st.session_state.mastery.get(b, "#d3d3d3")
-            nodes.append(Node(id=b, label=b, size=40, shape="ellipse", color=color, font={'size': 16, 'color': 'black'}))
+            nodes.append(Node(id=b, label=b, size=40, shape="ellipse", color=color, font={'size': 14,}))
             edges.append(Edge(source=st.session_state.web_data["center"], target=b, width=3))
 
         # Spider Web Physics Config
         config = Config(
-            width=1000,
-            height=600,
+            width=800,
+            height=500,
             physics=True,
             fit_canvas=True,
-
             interaction={
                 "dragNodes": True,
                 "dragView": False,
@@ -91,18 +91,15 @@ def show_map_view():
             
             barnesHut={
                 "gravitationalConstant": -15000,
-                "centralGravity": 0.05,
+                "centralGravity": 0.4,
                 "springLength": 200,
                 "springConstant": 0.04,
                 "avoidOverlap": 1,
                 "damping": 0.3
             },
-            minVelocity=0.75,
-            mxvelocity=50,
             staticGraphWithDragAndDrop=True,
             nodeHighlightBehavior=True,
             highlightColor="#F7A7A6"
-        )
     
         clicked = agraph(nodes=nodes, edges=edges, config=config)
 
