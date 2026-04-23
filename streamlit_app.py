@@ -90,9 +90,9 @@ def show_map_view():
                 "zoomView": False},
             
             barnesHut={
-                "gravitationalConstant": -15000,
+                "gravitationalConstant": -25000,
                 "centralGravity": 0.4,
-                "springLength": 200,
+                "springLength": 300,
                 "springConstant": 0.04,
                 "avoidOverlap": 1,
                 "damping": 0.3
