@@ -64,7 +64,7 @@ def show_map_view():
     if st.session_state.web_data:
         left_buf, main_col, right_buf = st.columns([1, 9, 1])
         with main_col:
-        nodes = [Node(id=st.session_state.web_data["center"],
+            nodes = [Node(id=st.session_state.web_data["center"],
                       label=st.session_state.web_data["center"],
                       size=50,
                       shape="ellipse",
