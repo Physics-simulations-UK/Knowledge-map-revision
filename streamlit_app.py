@@ -70,7 +70,7 @@ def show_map_view():
                       size=50,
                       shape="ellipse",
                       color="#FFD700",
-                      font={'size': 20, 'weight': 'bold'},**{'x': 1000, 'y': 0, 'fixed': True})]
+                      font={'size': 20, 'weight': 'bold'},**{'x': -1000, 'y': 0, 'fixed': True})]
        
         edges = []
         for b in st.session_state.web_data["branches"]:
