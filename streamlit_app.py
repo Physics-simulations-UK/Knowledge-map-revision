@@ -83,6 +83,11 @@ def show_map_view():
             height=600,
             physics=True,
             fit_canvas=True,
+
+            interaction={
+                "dragNodes": True,
+                "dragView": False,
+                "zoomView": False},
             
             barnesHut={
                 "gravitationalConstant": -15000,
