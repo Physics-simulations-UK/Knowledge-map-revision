@@ -77,9 +77,7 @@ def show_map_view():
                 st.rerun()
 
     if st.session_state.web_data:
-        # use columns layout spacing
-        col1, col2, col3 = st.columns([0.02, 0.96, 0.02])
-        with col2:
+    
             nodes = [Node(id=st.session_state.web_data["center"],
                       label=st.session_state.web_data["center"],
                       size=55,
