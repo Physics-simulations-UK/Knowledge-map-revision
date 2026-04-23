@@ -52,11 +52,13 @@ def show_map_view():
     st.title("🕸️ Knowledge Map Navigator")
     st.markdown("""
     <style>
+        [data-testid="stHorizontalBlock"]{
+            align-items: ceter;}
         iframe[title="streamlit_agraph.agraph"] {
             display: block;
-            margin: 20px auto; /* This centers the iframe in the column */
-            border: 3px solid #f0f2f6; 
-            border-radius: 20px;
+            margin: 0 auto !important;
+            border: 2px solid #f0f2f6; 
+            border-radius: 15px;
             background-color: #fafafa;
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
@@ -79,10 +81,10 @@ def show_map_view():
         with col2:
             nodes = [Node(id=st.session_state.web_data["center"],
                       label=st.session_state.web_data["center"],
-                      size=50,
+                      size=45,
                       shape="ellipse",
                       color="#FFD700",
-                      font={'size': 22, 'color': 'black', 'face': 'Arial', 'weight': 'bold'})]
+                      font={'size': 20, 'color': 'black', 'face': 'Arial', 'weight': 'bold'})]
        
         edges = []
         for b in st.session_state.web_data["branches"]:
@@ -92,8 +94,8 @@ def show_map_view():
 
         # Spider Web Physics Config
         config = Config(
-            width=1100,
-            height=750,
+            width=1200,
+            height=550,
             physics=True,
             fit_canvas=True,
             hierarchial=False,
@@ -103,10 +105,10 @@ def show_map_view():
                 "zoomView": False
         },
             barnesHut={
-                "gravitationalConstant": -15000, 
-                "centralGravity": 0.15,
+                "gravitationalConstant": -25000, 
+                "centralGravity": 0.1,
                 "springLength": 250,
-                "springConstant": 0.05,
+                "springConstant": 0.04,
                 "avoidOverlap": 1,
                 "damping": 0.09
             },
