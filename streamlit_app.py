@@ -51,19 +51,17 @@ def stream_text(text):
 def show_map_view():
     st.title("🕸️ Knowledge Map Navigator")
     st.markdown("""
-        <style>
-            div[data-testid="stHorizontalBlock"] > div:nth-child(2) {
-                disply: flex;
-                justify-content: center;
-            }
-            
-            iframe[title="streamlit_agraph.agraph"]{
-        
-                margin: 0 auto;
-            
-            }
-        <style>
-    """, unsafe_allow_html=True)
+    <style>
+        iframe[title="streamlit_agraph.agraph"] {
+            display: block;
+            margin: 0 auto; /* This centers the iframe in the column */
+            border: 2px solid #f0f2f6;
+            border-radius: 15px;
+            background-color: #fafafa;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+    </style>
+""", unsafe_allow_html=True)
    
     with st.sidebar:
         st.header("Syllabus Input")
