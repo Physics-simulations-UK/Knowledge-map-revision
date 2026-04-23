@@ -94,8 +94,8 @@ def show_map_view():
 
         # Spider Web Physics Config
         config = Config(
-            width=1500,
-            height=600,
+            width=1200,
+            height=550,
             physics=True,
             fit_canvas=True,
             hierarchial=False,
