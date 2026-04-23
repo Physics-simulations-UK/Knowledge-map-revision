@@ -70,7 +70,7 @@ def show_map_view():
                       size=50,
                       shape="ellipse",
                       color="#FFD700",
-                      font={'size': 20, 'weight': 'bold'},**{'x': -5000, 'y': 0, 'fixed': True})]
+                      font={'size': 20, 'weight': 'bold'},**{'x': 0, 'y': 0, 'fixed': True})]
        
         edges = []
         for b in st.session_state.web_data["branches"]:
@@ -83,20 +83,15 @@ def show_map_view():
             width=1000,
             height=650,
             physics=True,
-            fit_canvas=False,
-            interaction={
-                "dragNodes": True,
-                "dragView": False,
-                "zoomView": False},
-            
-            barnesHut={
-                "gravitationalConstant": -30000,
-                "centralGravity": 0.0,
-                "springLength": 400,
-                "springConstant": 0.04,
-                "avoidOverlap": 1,
-                "damping": 0.7
-            },
+            fit_canvas=True,
+            solver="repulsion",
+            repulsion={
+                "nodeDistance": 300,
+                "centralGravity": 0.2,
+                "springLength": 250,
+                "springConstant": 0.05,
+            }
+            interaction={"dragNodes": True, "dragView": False, "zoomView": False}
             staticGraphWithDragAndDrop=True,
             nodeHighlightBehavior=True,
             highlightColor="#F7A7A6"
