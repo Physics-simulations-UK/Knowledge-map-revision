@@ -54,11 +54,11 @@ def show_map_view():
     <style>
         iframe[title="streamlit_agraph.agraph"] {
             display: block;
-            margin: 0 auto; /* This centers the iframe in the column */
-            border: 2px solid #f0f2f6;
-            border-radius: 15px;
+            margin: 20px auto; /* This centers the iframe in the column */
+            border: 3px solid #f0f2f6; 
+            border-radius: 20px;
             background-color: #fafafa;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
     </style>
 """, unsafe_allow_html=True)
@@ -75,25 +75,25 @@ def show_map_view():
 
     if st.session_state.web_data:
         # use columns layout spacing
-        col1, col2, col3 = st.columns([0.05, 0.9, 0.05])
+        col1, col2, col3 = st.columns([0.02, 0.96, 0.02])
         with col2:
             nodes = [Node(id=st.session_state.web_data["center"],
                       label=st.session_state.web_data["center"],
-                      size=80,
+                      size=50,
                       shape="ellipse",
                       color="#FFD700",
-                      font={'size': 24, 'color': 'black', 'face': 'Arial', 'weight': 'bold'})]
+                      font={'size': 22, 'color': 'black', 'face': 'Arial', 'weight': 'bold'})]
        
         edges = []
         for b in st.session_state.web_data["branches"]:
             color = st.session_state.mastery.get(b, "#d3d3d3")
-            nodes.append(Node(id=b, label=b, size=55, shape="ellipse", color=color, font={'size': 18, 'color': 'black'}))
+            nodes.append(Node(id=b, label=b, size=40, shape="ellipse", color=color, font={'size': 16, 'color': 'black'}))
             edges.append(Edge(source=st.session_state.web_data["center"], target=b, width=3))
 
         # Spider Web Physics Config
         config = Config(
-            width=900,
-            height=650,
+            width=1100,
+            height=750,
             physics=True,
             fit_canvas=True,
             hierarchial=False,
@@ -103,9 +103,9 @@ def show_map_view():
                 "zoomView": False
         },
             barnesHut={
-                "gravitationalConstant": -12000, 
-                "centralGravity": 0.2,
-                "springLength": 200,
+                "gravitationalConstant": -15000, 
+                "centralGravity": 0.15,
+                "springLength": 250,
                 "springConstant": 0.05,
                 "avoidOverlap": 1,
                 "damping": 0.09
