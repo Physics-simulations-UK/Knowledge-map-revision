@@ -83,7 +83,7 @@ def show_map_view():
             width=1000,
             height=650,
             physics=True,
-            fit_canvas=True,
+            fit_canvas=False,
             interaction={
                 "dragNodes": True,
                 "dragView": False,
