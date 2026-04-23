@@ -80,8 +80,8 @@ def show_map_view():
 
         # Spider Web Physics Config
         config = Config(
-            width=800,
-            height=500,
+            width=1000,
+            height=650,
             physics=True,
             fit_canvas=True,
             interaction={
@@ -90,12 +90,12 @@ def show_map_view():
                 "zoomView": False},
             
             barnesHut={
-                "gravitationalConstant": -8000,
-                "centralGravity": 0.4,
-                "springLength": 300,
+                "gravitationalConstant": -30000,
+                "centralGravity": 0.0
+                "springLength": 400,
                 "springConstant": 0.04,
                 "avoidOverlap": 1,
-                "damping": 0.3
+                "damping": 0.7
             },
             staticGraphWithDragAndDrop=True,
             nodeHighlightBehavior=True,
