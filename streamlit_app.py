@@ -52,11 +52,12 @@ def show_map_view():
     st.title("🕸️ Knowledge Map Navigator")
     st.markdown("""
     <style>
-        [data-testid="stHorizontalBlock"]{
-            align-items: ceter;}
+        /* This targets the container holding the graph */
         iframe[title="streamlit_agraph.agraph"] {
             display: block;
             margin: 0 auto !important;
+            width: 95% !important;
+            height: 600px !important;
             border: 2px solid #f0f2f6; 
             border-radius: 15px;
             background-color: #fafafa;
@@ -81,7 +82,7 @@ def show_map_view():
         with col2:
             nodes = [Node(id=st.session_state.web_data["center"],
                       label=st.session_state.web_data["center"],
-                      size=45,
+                      size=55,
                       shape="ellipse",
                       color="#FFD700",
                       font={'size': 20, 'color': 'black', 'face': 'Arial', 'weight': 'bold'})]
@@ -95,22 +96,16 @@ def show_map_view():
         # Spider Web Physics Config
         config = Config(
             width=1200,
-            height=550,
+            height=600,
             physics=True,
             fit_canvas=True,
-            hierarchial=False,
-            interaction={
-                "dragNodes": True,
-                "dragView": True,
-                "zoomView": False
-        },
+            
             barnesHut={
                 "gravitationalConstant": -25000, 
                 "centralGravity": 0.1,
                 "springLength": 250,
                 "springConstant": 0.04,
                 "avoidOverlap": 1,
-                "damping": 0.09
             },
             minVelocity=0.75,
             mxvelocity=50,
