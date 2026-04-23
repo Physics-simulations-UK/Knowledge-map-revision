@@ -91,7 +91,7 @@ def show_map_view():
             
             barnesHut={
                 "gravitationalConstant": -30000,
-                "centralGravity": 0.0
+                "centralGravity": 0.0,
                 "springLength": 400,
                 "springConstant": 0.04,
                 "avoidOverlap": 1,
