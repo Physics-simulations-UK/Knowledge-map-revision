@@ -90,7 +90,7 @@ def show_map_view():
                 "centralGravity": 0.2,
                 "springLength": 250,
                 "springConstant": 0.05,
-            }
+            },
             interaction={"dragNodes": True, "dragView": False, "zoomView": False}
             staticGraphWithDragAndDrop=True,
             nodeHighlightBehavior=True,
