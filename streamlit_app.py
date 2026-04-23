@@ -75,24 +75,25 @@ def show_map_view():
 
     if st.session_state.web_data:
         # use columns layout spacing
-        col1, col2, col3 = st.columns([0.1, 0.8, 0.1])
+        col1, col2, col3 = st.columns([0.05, 0.9, 0.05])
         with col2:
             nodes = [Node(id=st.session_state.web_data["center"],
                       label=st.session_state.web_data["center"],
-                      size=40,
+                      size=80,
                       shape="ellipse",
-                      color="#FFD700")]
+                      color="#FFD700",
+                      font={'size': 24, 'color': ''black', 'face': 'Arial', 'weight': 'bold'})]
        
         edges = []
         for b in st.session_state.web_data["branches"]:
             color = st.session_state.mastery.get(b, "#d3d3d3")
-            nodes.append(Node(id=b, label=b, size=30, shape="ellipse", color=color))
-            edges.append(Edge(source=st.session_state.web_data["center"], target=b))
+            nodes.append(Node(id=b, label=b, size=55, shape="ellipse", color=color, font={'size': 18, 'color': 'black'}))
+            edges.append(Edge(source=st.session_state.web_data["center"], target=b, width=3))
 
         # Spider Web Physics Config
         config = Config(
-            width=700,
-            height=500,
+            width=900,
+            height=650
             physics=True,
             fit_canvas=True,
             hierarchial=False,
@@ -102,9 +103,9 @@ def show_map_view():
                 "zoomView": False
         },
             barnesHut={
-                "gravitationalConstant": -5000, 
-                "centralGravity": 0.4,
-                "springLength": 120,
+                "gravitationalConstant": -12000, 
+                "centralGravity": 0.2,
+                "springLength": 200,
                 "springConstant": 0.05,
                 "avoidOverlap": 1,
                 "damping": 0.09
