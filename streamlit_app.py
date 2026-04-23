@@ -70,6 +70,7 @@ def show_map_view():
                       size=50,
                       shape="ellipse",
                       color="#FFD700",
+                      x=0, y=0, fixed=true,
                       font={'size': 20, 'weight': 'bold'})]
        
         edges = []
