@@ -5,22 +5,21 @@ import json
 from google import genai
 from google.genai import types
 
-# 1. PAGE CONFIG (Must be the very first Streamlit command)
+# 1. PAGE CONFIG
 st.set_page_config(
     page_title="Revision Knowledge Map",
-    page_icon="",
+    page_icon="🕸️",
     layout="wide"
 )
 
 # --- GOOGLE AI SETUP ---
 try:
-    # Ensure GEMINI_API_KEY is in your Streamlit Secrets
     client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 except Exception as e:
-    st.error("API Key missing or invalid in Secrets. Please check your setup.")
+    st.error("API Key missing or invalid in Streamlit Secrets.")
     st.stop()
 
-# --- SESSION STATE ---
+# --- SESSION STATE INITIALIZATION ---
 if "mastery" not in st.session_state:
     st.session_state.mastery = {}
 if "current_view" not in st.session_state:
@@ -30,20 +29,30 @@ if "web_data" not in st.session_state:
 if "selected_node" not in st.session_state:
     st.session_state.selected_node = None
 
-# --- AI FUNCTIONS (Defined early to avoid NameErrors) ---
+# --- AI FUNCTIONS ---
 
 def generate_knowledge_web(topic, level):
-    """Triggers the Gemini model to build the sub-topic list."""
-    with st.spinner(f"Gemini is building your {level} map..."):
-        prompt = f"Act as a curriculum expert for {level}. For the topic '{topic}', identify 8 key sub-topics. Return ONLY a JSON object: {{\"sub_topics\": [\"topic1\", \"topic2\", \"topic3\", \"topic4\", \"topic5\", \"topic6\", \"topic7\", \"topic8\"]}}"
-       
-        response = client.models.generate_content(
-            model="gemini-1.5-flash", # Note: Mapping to stable flash name for reliability
-            contents=prompt,
-            config=types.GenerateContentConfig(response_mime_type="application/json")
-        )
-       
+    """Triggers Gemini to build a curriculum-aligned sub-topic list."""
+    if not topic or not level:
+        return
+
+    with st.spinner(f"Gemini is building your {level} map for {topic}..."):
         try:
+            # THE PROMPT
+            prompt = f"""
+            Act as an expert Edexcel Physics teacher.
+            The student is studying {level}.
+            Create a detailed knowledge map for the unit: '{topic}'.
+            Identify exactly 8 essential sub-topics that appear in the Edexcel specification.
+            Return ONLY a JSON object: {{"sub_topics": ["topic1", "topic2", "topic3", "topic4", "topic5", "topic6", "topic7", "topic8"]}}
+            """
+           
+            response = client.models.generate_content(
+                model="gemini-1.5-flash",
+                contents=prompt,
+                config=types.GenerateContentConfig(response_mime_type="application/json")
+            )
+           
             branches = json.loads(response.text)["sub_topics"]
             st.session_state.web_data = {
                 "center": topic,
@@ -51,10 +60,18 @@ def generate_knowledge_web(topic, level):
             }
             st.rerun()
         except Exception as e:
-            st.error(f"Error parsing AI response: {e}")
+            st.error(f"AI Generation failed: {e}")
 
-def generate_questions(node_label):
-    prompt = f"Generate 5 MCQs for: {node_label}. Provide 3 options, the correct answer, and an explanation for why it is correct. Return ONLY a JSON list: [{{\"q\": \"...\", \"options\": [\"...\", \"...\"], \"correct\": \"...\", \"explanation\": \"...\"}}]"
+def generate_questions(node_label, level):
+    """Generates examiner-style MCQs."""
+    prompt = f"""
+    Act as an Edexcel Physics Examiner.
+    Generate 5 multiple-choice questions for the sub-topic: '{node_label}'.
+    The difficulty must match the {level} standard.
+    Include common misconceptions in the wrong options.
+    Provide a detailed explanation for the correct answer referring to physical laws.
+    Return ONLY a JSON list: [{{"q": "...", "options": ["...", "...", "..."], "correct": "...", "explanation": "..."}}]
+    """
     response = client.models.generate_content(
         model="gemini-1.5-flash",
         contents=prompt,
@@ -70,7 +87,7 @@ def stream_text(text):
 # --- SIDEBAR UI ---
 with st.sidebar:
     st.image("IMG_0202.png", use_container_width=True)
-    st.title("Syllabus and Topic Selection")
+    st.title("Syllabus Selection")
    
     curriculum = {
         "GCSE (Edexcel)": [
@@ -98,6 +115,8 @@ with st.sidebar:
 
         if selected_unit and st.button("Generate Web"):
             generate_knowledge_web(selected_unit, selected_level)
+            # Store level in session state for the quiz prompt later
+            st.session_state.user_level = selected_level
     else:
         st.info("Choose a level to begin.")
    
@@ -106,11 +125,9 @@ with st.sidebar:
 # --- VIEW: KNOWLEDGE MAP ---
 def show_map_view():
     st.title("🕸️ Knowledge Map Navigator")
-    # CSS to center the map iframe
     st.markdown("<style>iframe {display: block; margin: 0 auto !important;}</style>", unsafe_allow_html=True)
 
     if st.session_state.web_data:
-        # Define Nodes
         nodes = [Node(id=st.session_state.web_data["center"],
                       label=st.session_state.web_data["center"],
                       size=50, shape="ellipse", color="#FFD700",
@@ -123,15 +140,9 @@ def show_map_view():
             nodes.append(Node(id=b, label=b, size=40, shape="ellipse", color=color, font={'size': 14}))
             edges.append(Edge(source=st.session_state.web_data["center"], target=b, width=3))
 
-        # Your specific Physics/Agraph Config
         config = Config(
-            width=1200,
-            height=800,
-            physics=True,
-            fit_canvas=True,
-            initialZoom=1.0,
-            staticGraph=False,
-            solver="repulsion",
+            width=1200, height=800, physics=True, fit_canvas=True,
+            initialZoom=1.0, staticGraph=False, solver="repulsion",
             repulsion={
                 "nodeDistance": 400,
                 "centralGravity": 0.1,
@@ -151,20 +162,20 @@ def show_map_view():
             st.session_state.current_view = "quiz"
             st.rerun()
     else:
-        st.info("👈 Choose a level and topic in the sidebar to start.")
+        st.info("👈 Select a topic in the sidebar to build your knowledge map.")
 
 # --- VIEW: QUIZ ---
 def show_quiz_view():
     node = st.session_state.selected_node
+    level = st.session_state.get("user_level", "GCSE")
    
     if st.button("⬅ Back to Map"):
         st.session_state.current_view = "map"
         st.rerun()
 
-    # Cache questions for this session
     if "active_questions" not in st.session_state or st.session_state.get("last_node") != node:
-        with st.spinner(f"Gemini is generating questions for {node}..."):
-            st.session_state.active_questions = generate_questions(node)
+        with st.spinner(f"Generating examiner-style questions for {node}..."):
+            st.session_state.active_questions = generate_questions(node, level)
             st.session_state.last_node = node
 
     st.title(f"Checkpoint: {node}")
@@ -173,7 +184,7 @@ def show_quiz_view():
         user_responses = []
         for i, q in enumerate(st.session_state.active_questions):
             st.write(f"**Question {i+1}:** {q['q']}")
-            ans = st.radio("Choose one:", q['options'], index=None, key=f"ans_{i}", label_visibility="collapsed")
+            ans = st.radio("Choose one:", q['options'], index=None, key=f"ans_{i}")
             user_responses.append(ans)
 
         if st.form_submit_button("Submit Assessment"):
@@ -186,11 +197,9 @@ def show_quiz_view():
                     st.error(f"Q{i+1}: Incorrect.")
                     st.write_stream(stream_text(q['explanation']))
 
-            # Mastery Logic: All correct = Green, anything else = Red
             st.session_state.mastery[node] = "#28a745" if correct_count == 5 else "#dc3545"
-            st.info("Result saved! Use the button above to go back to the map.")
 
-# --- MAIN ROUTING ---
+# --- ROUTING ---
 if st.session_state.current_view == "map":
     show_map_view()
 else:
