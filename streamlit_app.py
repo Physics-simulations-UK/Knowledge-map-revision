@@ -7,8 +7,8 @@ from google.genai import types
 
 # 1. PAGE CONFIG
 st.set_page_config(
-    page_title="Revision Knowledge Map",
-    page_icon="🕸️",
+    page_title="Revision Map",
+    page_icon="📚",
     layout="wide"
 )
 
