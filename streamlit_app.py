@@ -1,6 +1,9 @@
 import streamlit as st
 from streamlit_agraph import agraph, Node, Edge, Config
-st.set_page_config(layout="wide")
+st.set_page_config(
+    page_title="Revision Knowledge Map",
+    page_icon="📚",
+    layout="wide")
 from google import genai
 from google.genai import types
 import time
