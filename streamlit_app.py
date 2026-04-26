@@ -26,7 +26,7 @@ if "selected_node" not in st.session_state:
 
 # --- AI FUNCTIONS ---
 def generate_web_data(topic):
-    prompt = f"Act as a curriculum expert. For the topic '{topic}', identify 5 key sub-topics. Return ONLY a JSON object: {{\"sub_topics\": [\"topic1\", \"topic2\", \"topic3\", \"topic4\", \"topic5\"]}}"
+    prompt = f"Act as a curriculum expert. For the topic '{topic}', identify 8 key sub-topics. Return ONLY a JSON object: {{\"sub_topics\": [\"topic1\", \"topic2\", \"topic3\", \"topic4\", \"topic5\"]}}"
     response = client.models.generate_content(
         model="gemini-3.1-flash-lite-preview",
         contents=prompt,
