@@ -71,7 +71,7 @@ def show_map_view():
                       size=50,
                       shape="ellipse",
                       color="#FFD700",
-                      font={'size': 20, 'weight': 'bold'},**{'x': 0, 'y': 0, 'fixed': True})]
+                      font={'size': 20, 'weight': 'bold'},**{'x': -250, 'y': 0, 'fixed': True})]
        
         edges = []
         for b in st.session_state.web_data["branches"]:
@@ -89,8 +89,8 @@ def show_map_view():
             staticGraph=False,
             solver="repulsion",
             repulsion={
-                "nodeDistance": 400,
-                "centralGravity": 0.1,
+                "nodeDistance": 280,
+                "centralGravity": 0.5,
                 "springLength": 300,
                 "springConstant": 0.05,
             },
