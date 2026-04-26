@@ -73,7 +73,7 @@ def generate_questions(node_label, level):
     Return ONLY a JSON list: [{{"q": "...", "options": ["...", "...", "..."], "correct": "...", "explanation": "..."}}]
     """
     response = client.models.generate_content(
-        model="gemini-1.5-flash",
+        model="gemini-3.1-flash-lite-preview",
         contents=prompt,
         config=types.GenerateContentConfig(response_mime_type="application/json")
     )
