@@ -124,7 +124,7 @@ with st.sidebar:
 
 # --- VIEW: KNOWLEDGE MAP ---
 def show_map_view():
-    st.title("👨‍🏫 Revision Map 👨🏻‍🏫")
+    st.title("🎯 Revision Map 💭")
     st.markdown("<style>iframe {display: block; margin: 0 auto !important;}</style>", unsafe_allow_html=True)
 
     if st.session_state.web_data:
