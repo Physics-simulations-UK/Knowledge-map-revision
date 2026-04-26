@@ -51,7 +51,7 @@ def stream_text(text):
 # --- VIEW: KNOWLEDGE MAP ---
 def show_map_view():
     st.title("🕸️ Knowledge Map Navigator")
-    st.markdown("<style>iframe {display: block; margin: 0 auto;}</style>", unsafe_allow_html=True)
+    st.markdown("<style>iframe {display: block; margin: 0 auto !important;}</style>", unsafe_allow_html=True)
      
     with st.sidebar:
         st.header("Syllabus Input")
@@ -71,7 +71,7 @@ def show_map_view():
                       size=50,
                       shape="ellipse",
                       color="#FFD700",
-                      font={'size': 20, 'weight': 'bold'},**{'x': -200, 'y': 0, 'fixed': True})]
+                      font={'size': 20, 'weight': 'bold'},**{'x': 0, 'y': 0, 'fixed': True})]
        
         edges = []
         for b in st.session_state.web_data["branches"]:
@@ -81,17 +81,17 @@ def show_map_view():
 
         # Spider Web Physics Config
         config = Config(
-            width=1400,
+            width=1200,
             height=800,
             physics=True,
-            fit_canvas=False,
+            fit_canvas=True,
             initialZoom=1.0,
             staticGraph=False,
             solver="repulsion",
             repulsion={
-                "nodeDistance": 350,
-                "centralGravity": 0.0,
-                "springLength": 250,
+                "nodeDistance": 400,
+                "centralGravity": 0.1,
+                "springLength": 300,
                 "springConstant": 0.05,
             },
             interaction={"dragNodes": True, "dragView": False, "zoomView": False},
