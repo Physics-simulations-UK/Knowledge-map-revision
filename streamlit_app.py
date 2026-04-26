@@ -87,7 +87,7 @@ def stream_text(text):
 # --- SIDEBAR UI ---
 with st.sidebar:
     st.image("IMG_0202.png", use_container_width=True)
-    st.title("Syllabus Selection")
+    st.title("Level and Topic Selection")
    
     curriculum = {
         "GCSE (Edexcel)": [
@@ -124,7 +124,7 @@ with st.sidebar:
 
 # --- VIEW: KNOWLEDGE MAP ---
 def show_map_view():
-    st.title("🕸️ Knowledge Map Navigator")
+    st.title("👨‍🏫 Revision Map 👨🏻‍🏫")
     st.markdown("<style>iframe {display: block; margin: 0 auto !important;}</style>", unsafe_allow_html=True)
 
     if st.session_state.web_data:
