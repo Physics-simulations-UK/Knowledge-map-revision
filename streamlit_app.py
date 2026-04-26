@@ -4,7 +4,40 @@ st.set_page_config(
     page_title="Revision Knowledge Map",
     page_icon="📚",
     layout="wide")
-st.sidebar.image("IMG_0202.png", use_container_width=True)
+with st.sidebar:
+    st.sidebar.image("IMG_0202.png", use_container_width=True)
+    st.title("Syllabus and Topic Selection")
+      # 2. Drop the curriculum dictionary right here
+    curriculum = {
+        "GCSE (Edexcel)": [
+            "Topic 1: Key Concepts of Physics", "Topic 2: Motion and Forces",
+            "Topic 3: Conservation of Energy", "Topic 4: Waves",
+            "Topic 5: Light and the Electromagnetic Spectrum", "Topic 6: Radioactivity",
+            "Topic 7: Astronomy", "Topic 8: Energy - Forces doing Work",
+            "Topic 9: Forces and their Effects", "Topic 10: Electricity and Circuits",
+            "Topic 11: Static Electricity", "Topic 12: Magnetism and the Motor Effect",
+            "Topic 13: Electromagnetic Induction", "Topic 14: Particle Model",
+            "Topic 15: Forces and Matter"
+        ],
+        "IAL (Pearson Edexcel)": [
+            "Unit 1: Mechanics and Materials", "Unit 2: Waves and Electricity",
+            "Unit 3: Practical Skills I", "Unit 4: Further Mechanics, Fields and Particles",
+            "Unit 5: Thermodynamics, Radiation, Oscillations and Cosmology",
+            "Unit 6: Practical Skills II"
+        ]
+    }
+
+    # 3. The Dropdowns
+    selected_level = st.selectbox("Select Level:", options=list(curriculum.keys()), index=None)
+
+    if selected_level:
+        selected_unit = st.selectbox(f"Select {selected_level} Unit:", options=curriculum[selected_level], index=None)
+        
+        if selected_unit and st.button("Generate Web"):
+            # This calls your AI function using the chosen unit!
+            generate_knowledge_web(selected_unit, selected_level) 
+    else:
+        st.info("Choose a level to begin.")
 st.sidebar.divider()
 from google import genai
 from google.genai import types
