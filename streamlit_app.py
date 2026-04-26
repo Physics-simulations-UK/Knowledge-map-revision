@@ -36,7 +36,7 @@ def generate_knowledge_web(topic, level):
     if not topic or not level:
         return
 
-    with st.spinner(f"Gemini is building your {level} map for {topic}..."):
+    with st.spinner(f"Building your {level} map for {topic}..."):
         try:
             # THE PROMPT
             prompt = f"""
@@ -48,7 +48,7 @@ def generate_knowledge_web(topic, level):
             """
            
             response = client.models.generate_content(
-                model="gemini-1.5-flash",
+                model="gemini-3.1-flash-lite-preview",
                 contents=prompt,
                 config=types.GenerateContentConfig(response_mime_type="application/json")
             )
