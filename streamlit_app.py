@@ -130,7 +130,7 @@ def show_quiz_view():
         user_responses = []
         for i, q in enumerate(st.session_state.active_questions):
             st.write(f"**Question {i+1}:** {q['q']}")
-            ans = st.radio("Choose one:", q['options'], key=f"ans_{i}", label_visibility="collapsed")
+            ans = st.radio("Choose one:", q['options'], index=None, key=f"ans_{i}", label_visibility="collapsed")
             user_responses.append(ans)
        
         if st.form_submit_button("Submit Assessment"):
