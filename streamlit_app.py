@@ -90,16 +90,7 @@ def stream_text(text):
 def show_map_view():
     st.title("🕸️ Knowledge Map Navigator")
     st.markdown("<style>iframe {display: block; margin: 0 auto !important;}</style>", unsafe_allow_html=True)
-     
-    with st.sidebar:
-        st.header("Syllabus Input")
-        topic_input = st.text_input("Enter Topic:", placeholder="e.g. Plate Tectonics")
-        if st.button("Generate Web"):
-            with st.spinner("Gemini is spinning the web..."):
-                branches = generate_web_data(topic_input)
-                st.session_state.web_data = {"center": topic_input, "branches": branches}
-                st.session_state.mastery = {b: "#d3d3d3" for b in branches}
-                st.rerun()
+    
 
     if st.session_state.web_data:
         
