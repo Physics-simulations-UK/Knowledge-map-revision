@@ -1,5 +1,6 @@
 import streamlit as st
 from streamlit_agraph import agraph, Node, Edge, Config
+st.sest.set_page_config(layout="wide")
 from google import genai
 from google.genai import types
 import time
@@ -80,15 +81,15 @@ def show_map_view():
 
         # Spider Web Physics Config
         config = Config(
-            width=1000,
-            height=650,
+            width=1400,
+            height=800,
             physics=True,
             fit_canvas=False,
-            initialZoom=1.2,
+            initialZoom=1.0,
             staticGraph=False,
             solver="repulsion",
             repulsion={
-                "nodeDistance": 300,
+                "nodeDistance": 350,
                 "centralGravity": 0.0,
                 "springLength": 250,
                 "springConstant": 0.05,
