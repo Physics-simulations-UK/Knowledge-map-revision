@@ -4,7 +4,7 @@ st.set_page_config(
     page_title="Revision Knowledge Map",
     page_icon="📚",
     layout="wide")
-st.sidebar.image("logo.png", use_container_width=True)
+st.sidebar.image("IMG_0202.png", use_container_width=True)
 st.sidebar.divider()
 from google import genai
 from google.genai import types
