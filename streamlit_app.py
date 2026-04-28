@@ -87,6 +87,9 @@ def generate_questions(node_label, level):
             config=types.GenerateContentConfig(response_mime_type="application/json")
     )
     return json.loads(response.text)
+except Exception as e:
+    st.error(f"Quiz Generation Failed: {e}")
+    return []
 
 def stream_text(text):
     for word in text.split():
