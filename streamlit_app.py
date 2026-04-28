@@ -63,19 +63,28 @@ def generate_knowledge_web(topic, level):
             st.error(f"AI Generation failed: {e}")
 
 def generate_questions(node_label, level):
-    """Generates examiner-style MCQs."""
-    prompt = f"""
-    Act as an Edexcel Physics Examiner.
-    Generate 5 multiple-choice questions for the sub-topic: '{node_label}'.
-    The difficulty must match the {level} standard.
-    Include common misconceptions in the wrong options.
-    Provide a detailed explanation for the correct answer referring to physical laws.
-    Return ONLY a JSON list: [{{"q": "...", "options": ["...", "...", "..."], "correct": "...", "explanation": "..."}}]
-    """
-    response = client.models.generate_content(
-        model="gemini-3.1-flash-lite-preview",
-        contents=prompt,
-        config=types.GenerateContentConfig(response_mime_type="application/json")
+    """Generates MCQs strictly aligned with Edexcel GCSE Higher Tier standards."""
+    try:
+        prompt = f""" 
+        Act as a Senior Edexcel GCSE Physics Examiner. 
+        Your task is to generate 5 Higher Tier MCQs for the sub-topic: '{node_label}'. 
+        
+        STRICT SYLLABUS BOUNDARIES:
+        - ONLY include content found in the Edexcel GCSE (9-1) Physics specification.
+        - DO NOT include A-Level concepts (e.g., avoid SUVAT, thermal physics beyond particle model, or complex circular motion).
+        - Use ONLY Edexcel command words: 'State', 'Describe', 'Explain', 'Calculate', 'Determine', 'Estimate'. 
+        
+        QUESTION QUALITY RULES: 1. Difficulty: Target Grade 7-9 (Higher Tier) but keep it within GCSE math limits.
+       
+        2. Format: 1 clear question, 3 plausible distractors based on common student misconceptions, 1 correct answer.
+        3. Logic: For 'Explain' questions, the explanation must link a statement with a reason (using 'because' or 'therefore'). 
+        4. Math: Calculations should be 1-2 steps maximum. 
+        
+        Return ONLY a JSON list: [{{"q": "...", "options": ["...", "...", "..."], "correct": "...", "explanation": "..."}}] """
+        response = client.models.generate_content(
+            model="gemini-3.1-flash-lite-preview",
+            contents=prompt,
+            config=types.GenerateContentConfig(response_mime_type="application/json")
     )
     return json.loads(response.text)
 
