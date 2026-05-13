@@ -48,7 +48,7 @@ def generate_knowledge_web(topic, level):
             """
            
             response = client.models.generate_content(
-                model="gemini-3.1-flash-lite-preview",
+                model="gemini-3.1-flash-lite",
                 contents=prompt,
                 config=types.GenerateContentConfig(response_mime_type="application/json")
             )
@@ -82,7 +82,7 @@ def generate_questions(node_label, level):
         
         Return ONLY a JSON list: [{{"q": "...", "options": ["...", "...", "..."], "correct": "...", "explanation": "..."}}] """
         response = client.models.generate_content(
-            model="gemini-3.1-flash-lite-preview",
+            model="gemini-3.1-flash-lite",
             contents=prompt,
             config=types.GenerateContentConfig(response_mime_type="application/json")
         )
